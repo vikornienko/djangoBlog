@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <h1>The create view</h1>
+    {% for object in object_list %}
+        {{ object.title }}
+
+    {% endfor %}
+
+    </div>
+
+{% endblock content %}
