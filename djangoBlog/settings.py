@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
 
 # Application definition
 
@@ -37,8 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    # Third-party apps
+    # Django allauth apps
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
     # This project applications
-    'app_posts.apps.AppPostsConfig'
+    'app_posts.apps.AppPostsConfig',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +136,11 @@ MEDIA_ROOT = BASE_DIR / 'media_root'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Django allauth settings
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+AUTH_USER_MODEL = 'app_posts.User'
