@@ -5,4 +5,5 @@ Used:
 - Poetry 1.2;
 - Django 4.1;
 - Pycharm;
-- git and GitHub.
+- git and GitHub;
+- Bootstrap 5.

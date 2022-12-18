@@ -2,11 +2,34 @@
 
 {% block content %}
     <div class="container">
-    {% for object in object_list %}
-        {{ object.title }}
+        <h1>The post list view</h1>
+        <div class="row">
+            {% for object in object_list %}
+                <div class="col-4">
 
-    {% endfor %}
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ object.thumbnail.url }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h5>
+                                <p class="card-text">{{ object.content|truncatechars:40 }}</p>
+                                <hr>
+                                <p class="card-text">
+                                    <span><i class="fa-regular fa-eye ml-2"></i>{{ object.get_view_count }}</span>
+                                    <span><i class="fa-regular fa-thumbs-up"></i>{{ object.get_like_count }}</span>
+                                    <span><i class="fa-regular fa-comment"></i>{{ object.get_comment_count }}</span>
+                                </p>
+                                <p class="card-text">
+                                    Posted {{ object.publish_date|timesince }} ago
+                                </p>
 
+                            </div>
+                        </div>
+
+                </div>
+
+            {% endfor %}
+        </div>
     </div>
+
 
 {% endblock content %}

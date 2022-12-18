@@ -1,12 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
-    <h1>The post detail view</h1>
-    {% for object in object_list %}
-        {{ object.title }}
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-4 offset-4">
+                <h1>The post detail view</h1>
+                <div class="card">
+                    <h1>{{ object.title|title }}</h1>
+                    <img src="{{ object.thumbnail.url }}" class="card-img-top" alt="post picture">
+                    <hr>
+                    <p class="card-text">
+                        <span><i class="fa-regular fa-eye ml-2"></i>{{ object.get_view_count }}</span>
+                        <span><i class="fa-regular fa-thumbs-up"></i>{{ object.get_like_count }}</span>
+                        <span><i class="fa-regular fa-comment"></i>{{ object.get_comment_count }}</span>
 
-    {% endfor %}
+                    </p>
+                    <p class="card-text">
+                        Posted {{ object.publish_date|timesince }} ago
+                    </p>
+                    <p>{{ object.content }}</p>
+                </div>
+                <hr>
+                <div>
+                    <h4>Enjoy this post? Give it a like!</h4>
+                    <a href="#" class="text-muted"><i class="fa-regular fa-thumbs-up"></i>{{ object.get_like_count }}</a>
+                </div>
+            </div>
+        </div>
+
+        <p></p>
+
 
     </div>
 
