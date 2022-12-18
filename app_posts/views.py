@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Post, PostView, Like, Comment
@@ -9,6 +9,12 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+
+    def get_object(self, **kwargs):
+        object = super().get_object(**kwargs)
+        if self.request.user.is_authenticated:
+            PostView.objects.get_or_create(user=self.request.user, post=object)
+        return object
 
 class PostCreateView(CreateView):
     form_class = PostForm
@@ -34,6 +40,16 @@ class PostUpdateView(UpdateView):
             {'view_type': 'update'}
         )
         return context
+
+
+def like(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    like_query_set = Like.objects.filter(user=request.user, post=post)
+    if like_query_set.exists():
+        like_query_set[0].delete()
+        return redirect('detail', slug=slug) 
+    Like.objects.create(user=request.user, post=post)
+    return redirect('detail', slug=slug)
 
 
 

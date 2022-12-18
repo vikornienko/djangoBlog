@@ -19,7 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from app_posts.views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
+from app_posts.views import (
+    PostListView,
+    PostDetailView,
+    PostCreateView,
+    PostUpdateView,
+    PostDeleteView,
+    like,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +36,7 @@ urlpatterns = [
     path('<slug>/', PostDetailView.as_view(), name='detail'),
     path('<slug>/update/', PostUpdateView.as_view(), name='update'),
     path('<slug>/delete/', PostDeleteView.as_view(), name='delete'),
+    path('like/<slug>/', like, name='like'),
 
 ]
 
